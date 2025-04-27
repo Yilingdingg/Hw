@@ -15,7 +15,8 @@ data.columns = ('Date','Country_code', 'Country', 'WHO_region', 'New_cases', 'Cu
 data['Date'] = data['Date'].astype('datetime64[ns]')
 print(data.info())
 
-nl_data = data['Country']=='Netherlands'
+nl_data = data[data['Country_code']=='US']
+print(nl_data.info())
 
 time_series = nl_data.groupby('Date').sum()
 print(time_series.head())
@@ -27,5 +28,5 @@ figure_1 = go.Figure( data=[
     go.Bar( name = "Cumulative Cases during COVID-19", y = nl_data['Cumulative_cases'], x = x,  orientation = 'v'),
     go.Bar( name = "Cumulative Deaths during COVID-19", y = nl_data['Cumulative_deaths'], x = x, orientation = 'v')
 ])
-figure_1.update_layout(title = 'Covid in the Netherlands', height = 800, barmode = "stack")
+figure_1.update_layout(title = 'Covid in the US', height = 800, barmode = "stack")
 figure_1.write_html('figure_222.html', auto_open = True)
